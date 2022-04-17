@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% block title %} 404 - Not Found {% endblock title %}
+{% block body %}
+<div class="container">
+  <div style="display: grid; place-items: center">
+    <img
+      style="width: 35%; filter: grayscale(70%)"
+      src="{{ url_for('static', filename='images/404-error.png') }}"
+      alt="404 Not Found"
+    />
+    <h2 class="is-size-2"><b>Not Found</b></h2>
+    <a href="/" class="button is-info">Go Back Home</a>
+  </div>
+</div>
+{% endblock body %}

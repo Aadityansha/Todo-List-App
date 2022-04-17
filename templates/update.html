@@ -1,0 +1,51 @@
+{% extends 'base.html' %} {% block title %}Update Todo{% endblock title %} {%
+block body %}
+<div class="container">
+  <br /><br /><br />
+  <form action="/update/{{todo.sno}}" method="POST">
+    <div>
+      <h3 class="is-size-3">Update A Task 🏃🏼‍♂️</h3>
+      <br />
+      <p class="is-size-5">Task Title</p>
+      <input
+        class="input"
+        type="text"
+        id="disable-input"
+        value="{{todo.title}}"
+        placeholder="Task Title"
+        maxlength="60"
+        name="title"
+      />
+      <p class="is-size-5">Task Description</p>
+      <textarea
+        class="textarea"
+        placeholder="Task Description"
+        name="description"
+        maxlength="500"
+      >
+{{todo.description}}</textarea
+      >
+      <br />
+      <div class="select is-info">
+        <select name="status">
+          {% if todo.status == "incomplete-task" %}
+          <option value="incomplete-task" selected>incomplete-task</option>
+          <option value="completed-task">completed-task</option>
+          {% else %}
+          <option value="incomplete-task">incomplete-task</option>
+          <option value="completed-task" selected>completed-task</option>
+          {% endif %}
+        </select>
+      </div>
+      <br /><br />
+      <input
+        type="submit"
+        class="button is-info is-focused is-half"
+        value="Update Todo"
+        id="disable-btn"
+      />
+    </div>
+  </form>
+  <br />
+</div>
+{% endblock body %}

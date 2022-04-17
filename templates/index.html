@@ -1,0 +1,131 @@
+{% extends 'base.html' %} {% block title %}Mark Your Tasks{% endblock title %}
+{% block body %}
+<div class="container">
+  <form action="/" method="POST">
+    <div>
+      <h3 class="is-size-3">Add A Task 🚀</h3>
+      <br />
+      <p class="is-size-5">Task Title</p>
+      <input
+        class="input"
+        id="disable-input"
+        type="text"
+        placeholder="Task Title"
+        maxlength="60"
+        name="title"
+      />
+      <p class="is-size-5">Task Description</p>
+      <textarea
+        class="textarea"
+        id="todo-description"
+        placeholder="Task Description"
+        name="description"
+        maxlength="500"
+      ></textarea>
+      <br />
+      <input
+        type="submit"
+        class="button is-info is-focused is-half"
+        id="disable-btn"
+        value="Add Todo"
+      />
+    </div>
+  </form>
+  <br />
+  <div>
+    <h3 class="is-size-3">My Tasks 📃</h3>
+    <div class="tabs">
+      <ul>
+        <li class="is-active"><a href="/">Tasks</a></li>
+        <li><a href="/task/all">All</a></li>
+        <li><a href="/task/complete">Completed</a></li>
+        <li><a href="/task/incomplete">Incomplete</a></li>
+      </ul>
+    </div>
+    <div>
+      {% if todos|length==0 %}
+      <div style="display: grid; place-items: center">
+        <img
+          style="width: 30%; filter: grayscale(70%)"
+          src="{{ url_for('static', filename='images/no-notes.jpg') }}"
+          alt="No notes"
+        />
+        <p class="is-size-3">You have no pending Tasks 😊</p>
+      </div>
+      {% else %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Sno</th>
+            <th>Task</th>
+            <th>Added at</th>
+            <th>Status</th>
+            <th>View</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for todo in todos %}
+          <tr>
+            <th>{{loop.index}}</th>
+            <td>{{todo.title}}</td>
+            <td>
+              {% set added = todo.added|string %}
+              {{added[8:10]}}-{{added[5:7]}}-{{added[0:4]}}
+            </td>
+            <td>
+              <a href="/status/{{todo.sno}}">
+                {% if todo.status == "incomplete-task" %}
+                <span class="tag is-danger is-medium">{{todo.status}}</span>
+                {% else %}
+                <span class="tag is-success is-medium">{{todo.status}}</span>
+                {% endif %}
+              </a>
+            </td>
+            <td>
+              <button
+                class="js-modal-trigger button is-small is-warning"
+                data-target="{{todo.sno}}"
+              >
+                View
+              </button>
+            </td>
+            <td>
+              <a href="/update/{{todo.sno}}" class="button is-small is-info"
+                >Edit</a
+              >
+            </td>
+            <td>
+              <a href="/delete/{{todo.sno}}" class="button is-small is-danger"
+                >Delete</a
+              >
+            </td>
+          </tr>
+          <div id="{{todo.sno}}" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+              <div class="box">
+                <p class="is-size-4"><b>{{todo.title}}</b></p>
+                {% if todo.description|length==0 %}
+                <!-- no description -->
+                {% else %}
+                <br />
+                <p>{{todo.description}}</p>
+                {% endif %}
+              </div>
+            </div>
+            <button class="modal-close is-large" aria-label="close"></button>
+          </div>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %} {% if todos|length>=50 %}
+      <a href="/task/all">View all Task</a>
+      {% else %}
+      <!--  -->
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock body %}

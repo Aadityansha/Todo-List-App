@@ -1,0 +1,83 @@
+{% extends 'base.html' %} {% block title %} {{ title }} {% endblock title %} {%
+block body %}
+<div class="container">
+  <h3 class="is-size-3">{{title}} 🎉</h3>
+  <div style="margin-top: 2rem">
+    {% if todos|length==0 %}
+    <div style="display: grid; place-items: center">
+      <img
+        style="width: 30%; filter: grayscale(70%)"
+        src="{{ url_for('static', filename='images/no-notes.jpg') }}"
+        alt="No notes"
+      />
+      <p class="is-size-3">You have no {{title}}</p>
+    </div>
+    {% else %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Sno</th>
+          <th>Task</th>
+          <th>Added at</th>
+          <th>Status</th>
+          <th>View</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for todo in todos %}
+        <tr>
+          <th>{{loop.index}}</th>
+          <td>{{todo.title}}</td>
+          <td>{{todo.added}}</td>
+          <td>
+            <a href="/status/{{todo.sno}}">
+              {% if todo.status == "incomplete-task" %}
+              <span class="tag is-danger is-medium">{{todo.status}}</span>
+              {% else %}
+              <span class="tag is-success is-medium">{{todo.status}}</span>
+              {% endif %}
+            </a>
+          </td>
+          <td>
+            <button
+              class="js-modal-trigger button is-small is-warning"
+              data-target="{{todo.sno}}"
+            >
+              View
+            </button>
+          </td>
+          <td>
+            <a href="/update/{{todo.sno}}" class="button is-small is-info"
+              >Edit</a
+            >
+          </td>
+          <td>
+            <a href="/delete/{{todo.sno}}" class="button is-small is-danger"
+              >Delete</a
+            >
+          </td>
+        </tr>
+        <div id="{{todo.sno}}" class="modal">
+          <div class="modal-background"></div>
+          <div class="modal-content">
+            <div class="box">
+              <p class="is-size-4"><b>{{todo.title}}</b></p>
+              {% if todo.description|length==0 %}
+              <!-- no description -->
+              {% else %}
+              <br />
+              <p>{{todo.description}}</p>
+              {% endif %}
+            </div>
+          </div>
+          <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+  {% endblock body %}
+</div>

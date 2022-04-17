@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock title %} | 2DO</title>
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='icons/favicon.ico') }}"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css"
+    />
+  </head>
+  <body>
+    <nav
+      class="navbar is-transparent is-fixed-top"
+      role="navigation"
+      aria-label="main navigation"
+    >
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <img src="{{ url_for('static', filename='images/logo.png') }}" />
+          &nbsp;&nbsp;DO
+        </a>
+
+        <a
+          role="button"
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbarBasicExample"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="/"> My Tasks </a>
+        </div>
+
+        <div class="navbar-end">
+          <div>
+            <form action="/search" method="GET" class="navbar-item">
+              <input
+                class="input is-info"
+                type="search"
+                name="query"
+                placeholder="Search for Todo"
+              />
+              <button class="button is-info" style="margin-left: 10px">
+                Search
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <br /><br /><br />
+    {% block body %} {% endblock body %}
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <strong>2Do</strong> a master-piece by
+          <a href="https://github.com/Aadityansha" target="_blank"
+            >Aadityansha Patel</a
+          >.
+        </p>
+      </div>
+    </footer>
+    <script src="{{ url_for('static', filename='js/disable-btn.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/modal.js') }}"></script>
+  </body>
+</html>

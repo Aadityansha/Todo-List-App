@@ -1,0 +1,63 @@
+{% extends 'base.html' %} {% block title %}Search results for {{query}}{%
+endblock title %} {% block body %}
+<div class="container">
+  <h3 class="is-size-3">Search Results for {{query}} 🔎</h3>
+  <h4 class="subtitle is-4">
+    {% if todos|length==1 %}
+      {{todos|length}} Result Found
+    {% elif todos|length==0 %}
+      No Results Found
+    {% else %}
+      {{todos|length}} Results Found
+    {% endif %}
+  </h4>
+  <div class="toods">
+    {% if todos|length==0 %}
+    <div style="display: grid;place-items: center;">
+      <img style="width: 30%;filter: grayscale(100%);" src="{{ url_for('static', filename='images/no-results.jpg') }}" alt="No Results Found">
+      <p class="is-size-2">No Results Found</p>
+    </div>
+    {% else %}
+      {% for todo in todos %}
+      <div style="margin-top: 10px;">
+        <p class="is-size-5"><strong>{{loop.index}}. {{todo.title}}</strong></p>
+        <button class="js-modal-trigger button is-link is-light" data-target="modal-{{todo.sno}}">View</button>
+        <div id="modal-{{todo.sno}}" class="modal">
+          <div class="modal-background"></div>
+          <div class="modal-content">
+            <div class="box">
+              <p class="is-size-4"><strong>{{todo.title}}</strong></p>
+              <!-- date -->
+              {% set added = todo.added|string %} 📅
+              {{added[8:10]}}-{{added[5:7]}}-{{added[0:4]}} &nbsp;&nbsp;
+              <!-- status -->
+              {% if todo.status == "incomplete-task" %}
+              <span class="tag is-danger is-small">{{todo.status}}</span>
+              {% else %}
+              <span class="tag is-success is-small">{{todo.status}}</span>
+              {% endif %}
+              <!-- buttons -->
+              <a href="/update/{{todo.sno}}" class="button is-small is-info is-light"
+                >Edit</a
+              >
+              <a href="/delete/{{todo.sno}}" class="button is-small is-danger is-light"
+                >Delete</a
+              >
+              <!-- description -->
+              {% if todo.description|length==0 %}
+              <!-- do nothing -->
+              {% else %}
+              <br />
+              <p>{{todo.description}}</p>
+              {% endif %}
+            </div>
+          </div>
+          <button class="modal-close is-large" aria-label="close"></button>
+        </div>
+      </div>
+      {% endfor %}
+    </table>
+    {% endif %}
+  </div>
+</div>
+{% endblock body %}
