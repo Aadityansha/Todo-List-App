@@ -29,8 +29,8 @@ login_manager.login_view = 'login'
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# defining database schema
 
+# defining database schema
 
 class Todo(db.Model):  # schema for todo items
     sno = db.Column(db.Integer, primary_key=True)
@@ -78,8 +78,8 @@ class LoginForm(FlaskForm):
 
     submit = SubmitField('Sign In')
 
-# defining app routes
 
+# defining app routes
 
 @app.route("/", methods=['GET', 'POST'])  # route for index page
 @login_required
@@ -95,8 +95,7 @@ def index():
     return render_template("index.html", todos=todos)
 
 
-# route for updating tasks
-@app.route("/update/<int:sno>", methods=['GET', 'POST'])
+@app.route("/update/<int:sno>", methods=['GET', 'POST'])  # route for updating tasks
 @login_required
 def update(sno):
     user_id = current_user.id
@@ -230,9 +229,7 @@ def not_found(e):
     return render_template("404.html")
 
 
-"""
-THE CODE BELOW RUNS APP
-"""
+# running app
 if __name__ == "__main__":
     #error = login password not match but user logins ?
     app.run(debug=True, port=8000)
