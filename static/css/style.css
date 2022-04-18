@@ -15,3 +15,11 @@ textarea{
 .navbar-item{
   font-weight: 600;
 }
+.form-box{
+  width: 40%;
+}
+@media screen and (max-width:900px) {
+  .form-box{
+    width: 80%;
+  }
+}

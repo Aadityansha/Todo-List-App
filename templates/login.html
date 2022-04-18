@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% block title %}Sign In{% endblock title %} {% block
+body %}
+<div class="container" style="display: grid; place-items: center">
+  <img
+    style="width: 10%"
+    src="{{ url_for('static', filename='images/logo.png') }}"
+  />
+  <br />
+  <h3 class="is-size-3"><strong>Login to Manage for Tasks ✋🏼</strong></h3>
+  <br />
+  <div class="form-box">
+    <form action="" method="POST">
+      {{ form.hidden_tag() }}
+      <div class="field">
+        <label class="label">Username</label>
+        <div class="control">{{ form.username(class_="input is-info") }}</div>
+      </div>
+
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control">{{ form.password(class_="input is-info") }}</div>
+      </div>
+      {{ form.submit(class_="button is-info") }}
+      <br />
+      {% for field, errors in
+        form.errors.items() %}
+        <small class="form-text text-muted"> {{ ', '.join(errors) }} </small>
+        {% endfor %}
+    </form>
+    <br />
+    <strong>Don't have an account? <a href="/sign-up">SignUp</a></strong>
+  </div>
+</div>
+{% endblock body %}

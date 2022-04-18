@@ -45,10 +45,33 @@
       </div>
 
       <div id="navbarBasicExample" class="navbar-menu">
+        {% if form %}
+        <!-- do nothing -->
+        {% else %}
         <div class="navbar-start">
           <a class="navbar-item" href="/"> My Tasks </a>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              More
+            </a>
+    
+            <div class="navbar-dropdown">
+              <a href="/task/all" class="navbar-item">
+                All
+              </a>
+              <a href="/task/complete" class="navbar-item">
+                Completed
+              </a>
+              <a href="task/incomplete" class="navbar-item">
+                Incomplete
+              </a>
+              <hr class="navbar-divider">
+              <a href="/logout" class="navbar-item">
+                Logout
+              </a>
+            </div>
+          </div>
         </div>
-
         <div class="navbar-end">
           <div>
             <form action="/search" method="GET" class="navbar-item">
@@ -64,6 +87,7 @@
             </form>
           </div>
         </div>
+        {% endif %}
       </div>
     </nav>
     <br /><br /><br />

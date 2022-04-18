@@ -61,8 +61,6 @@
             <th>Added at</th>
             <th>Status</th>
             <th>View</th>
-            <th>Edit</th>
-            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -91,27 +89,25 @@
                 View
               </button>
             </td>
-            <td>
-              <a href="/update/{{todo.sno}}" class="button is-small is-info"
-                >Edit</a
-              >
-            </td>
-            <td>
-              <a href="/delete/{{todo.sno}}" class="button is-small is-danger"
-                >Delete</a
-              >
-            </td>
           </tr>
           <div id="{{todo.sno}}" class="modal">
             <div class="modal-background"></div>
             <div class="modal-content">
               <div class="box">
-                <p class="is-size-4"><b>{{todo.title}}</b></p>
+                <p class="is-size-4" style="margin-bottom: 10px">
+                  <b>{{todo.title}}</b>
+                </p>
+                <a href="/update/{{todo.sno}}" class="button is-small is-info"
+                  >Edit</a
+                >
+                <a href="/delete/{{todo.sno}}" class="button is-small is-danger"
+                  >Delete</a
+                >
                 {% if todo.description|length==0 %}
                 <!-- no description -->
                 {% else %}
                 <br />
-                <p>{{todo.description}}</p>
+                <p style="margin-top: 10px">{{todo.description}}</p>
                 {% endif %}
               </div>
             </div>
