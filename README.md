@@ -36,5 +36,5 @@ python app.py
 Server will be started at https://localhost:8000/
 ## Screenshots
 
-![App Screenshot](https://raw.githubusercontent.com/Aadityansha/Todo-List-App/main/screenshots/screenshot-1.png)
+![App Screenshot](https://raw.githubusercontent.com/Aadityansha/Todo-List-App/main/Screenshot.png)
 
